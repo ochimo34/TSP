@@ -71,10 +71,13 @@ if __name__ == '__main__':
 	# Record of calculate time
 	record_time = []
 
+	# Record of result
+	result_list = []
+
 	# Record of route
 	route_list = []
 
-	for point in range(1, 6):
+	for point in range(1, 11):
 
 		# Start watch
 		start = time.time()
@@ -117,6 +120,7 @@ if __name__ == '__main__':
 
 		# Solve problems
 		status = problem.solve()
+		result_list.append(LpStatus[status])
 
 		# End watch
 		end = time.time()
@@ -137,6 +141,8 @@ if __name__ == '__main__':
 		# 	plt.annotate('', xy=[model.iloc[j]['x'], model.iloc[j]['y']], xytext=[model.iloc[i]['x'], model.iloc[i]['y']], arrowprops=arrowprops)
 		# plt.show()
 
+
+	# Save images
 	fig, axes = plt.subplots(len(route_list), 1, figsize=(10, 50))
 	arrowprops = dict(arrowstyle='->', connectionstyle='arc3', edgecolor='blue')
 	for n in range(len(route_list)):
@@ -148,7 +154,7 @@ if __name__ == '__main__':
 
 
 	# Save calculatetime and value as csv
-	# df = pd.DataFrame({'calculate_time' : record_time, 'solution': [1, 1, 0.5, 0.4, 0.5]})
-	# df.to_csv('result/data.csv', index=False)
+	df = pd.DataFrame({'calculate_time' : record_time, 'result': result_list})
+	df.to_csv('result/data.csv', index=False)
 
 
